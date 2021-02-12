@@ -3,7 +3,7 @@ import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireList } from '@angular/fire/database';
 import { ActivatedRoute, Router } from '@angular/router';
-import 'rxjs/add/operator/take';
+import {take} from 'rxjs/operators';
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -19,7 +19,8 @@ export class ProductFormComponent implements OnInit {
               private route:ActivatedRoute) {
     this.categories$=categoryService.getCategories();
     this.id= this.route.snapshot.paramMap.get('id');
-    if(this.id) this.productService.get(this.id).take(1).subscribe(p => this.product= p); 
+    if(this.id) this.productService.get(this.id)
+    .pipe(take(1)).subscribe(p => this.product= p);
   }
  save(product){
    if(this.id) this.productService.update(this.id,product);
@@ -32,7 +33,7 @@ export class ProductFormComponent implements OnInit {
    if(!confirm('Are you sure you wanna delete this product?')) return;
      this.productService.delete(this.id);
      this.router.navigate(['/admin/products']);
-   
+
  }
   ngOnInit(): void {
   }

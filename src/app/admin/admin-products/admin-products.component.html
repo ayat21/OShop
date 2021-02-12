@@ -9,6 +9,32 @@
   type="text" class="form-control" placeholder="Search..."
   >
   </p>
+<data-table [items]="items"
+            [itemCount]="itemCount"
+            (reload)="reloadItems($event)">
+
+      <data-table-column
+            [property]="title"
+            [header]="Title"
+            [sortable]="true"
+            [resizable]="true">
+                        </data-table-column>
+      <data-table-column [property]="price" [header]="Price"
+      [sortable]="true" [resizable]="true">
+
+      <ng-tempate #dataTableCell let-item="item">
+        {{ item.price | currency:'USD':true}}
+      </ng-tempate>
+      </data-table-column>
+
+      <data-table-column [property]="'$key'">
+
+      <ng-tempate #dataTableCell let-item="item">
+        <a [routerLink]="['/admin/products/',item.$key]">Edit</a>
+      </ng-tempate>
+      </data-table-column>
+
+</data-table>
 
 <table class="table">
   <thead>
@@ -19,11 +45,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let p of filteredProducts"> 
+    <tr *ngFor="let p of filteredProducts">
       <td>{{p.title}}</td>
       <td>{{p.price}}<td>
       <td>
-        <a [routerLink]="['/admin/products/',p.$key]">Edit</a>
+
       </td>
     </tr>
   </tbody>

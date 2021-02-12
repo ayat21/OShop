@@ -4,7 +4,7 @@ import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
+import { DataTableModule } from "angular-4-data-table";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from '@angular/fire';
@@ -43,6 +43,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     ProductFormComponent
   ],
   imports: [
+    DataTableModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -72,7 +73,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 
       {path:'admin/products', component:AdminProductsComponent
       , canActivate:[AuthGuard,AdminAuthGuard]},
-      
+
       {path:'admin/orders', component:AdminOrdersComponent
       , canActivate:[AuthGuard,AdminAuthGuard]},
     ]),
